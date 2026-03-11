@@ -10,7 +10,34 @@ File metadata (filename, extension, expiration timestamp) is stored in a Postgre
 
 The project runs via docker-compose and consists of three services: the FastAPI web app (port 8000), a PostgreSQL database, and the trash collector.
 
-To build and run:
+## To build and run:
+```bash
 docker-compose up --build
+```
 
 add /temp to .gitignore
+
+## Testing the Convert Word Endpoint
+
+To test the POST /convert_word endpoint, you can use curl:
+
+```bash
+curl -X POST "http://localhost:8000/convert_word" \
+  -F "file=@/path/to/your/document.docx" \
+  --output result.pdf
+```
+
+Replace `/path/to/your/document.docx` with the actual path to a Word document on your system.
+
+The endpoint accepts .doc and .docx files and returns a PDF. The response will be the converted PDF file that you can save and open.
+
+Alternatively, to see the response headers and metadata:
+
+```bash
+curl -X POST "http://localhost:8000/convert_word" \
+  -F "file=@/path/to/your/document.docx" \
+  -v --output result.pdf
+```
+
+You can also test using tools like Postman or Thunder Client by sending a POST request with a file in the form-data field named "file".
+
